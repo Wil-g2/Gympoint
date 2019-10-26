@@ -10,13 +10,21 @@ class StudentController {
       email: Yup.string()
         .email()
         .required(),
-      age: Yup.number().required(),
-      weight: Yup.string().required(),
-      height: Yup.string().required(),
+      age: Yup.date().required(),
+      weight: Yup.number().required(),
+      height: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails.' });
+    }
+
+    const studentExist = await Student.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (studentExist) {
+      return res.status(400).json({ error: 'Student already exist.' });
     }
 
     const student = await Student.create(req.body);
@@ -30,9 +38,9 @@ class StudentController {
       email: Yup.string()
         .email()
         .required(),
-      age: Yup.number().required(),
-      weight: Yup.string().required(),
-      height: Yup.string().required(),
+      age: Yup.date().required(),
+      weight: Yup.number().required(),
+      height: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
