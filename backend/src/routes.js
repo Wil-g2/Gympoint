@@ -7,11 +7,16 @@ import PlansController from './app/controllers/PlanController';
 import EnrollController from './app/controllers/EnrollController';
 
 import authMiddleware from './app/middlewares/auth';
+import CheckinController from './app/controllers/CheckinController';
 
 const routes = new Router();
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
+
+// Routes Checkin
+routes.get('/students/:id/checkins', CheckinController.index);
+routes.post('/students/:id/checkins', CheckinController.store);
 
 routes.use(authMiddleware);
 routes.post('/students', StudentController.store);
