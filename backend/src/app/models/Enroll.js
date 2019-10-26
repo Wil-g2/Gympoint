@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import { addMonths, startOfDay } from 'date-fns';
 
 class Enroll extends Model {
   static init(sequelize) {
@@ -7,11 +8,24 @@ class Enroll extends Model {
         start_date: Sequelize.DATE,
         end_date: Sequelize.DATE,
         price: Sequelize.DECIMAL(10, 2),
+        duration: Sequelize.VIRTUAL,
+        month_price: Sequelize.VIRTUAL,
       },
       {
         sequelize,
       }
     );
+
+    this.addHook('beforeSave', async enroll => {
+      if (enroll.month_price && enroll.duration) {
+        enroll.price = enroll.month_price * enroll.duration;
+
+        enroll.end_date = addMonths(
+          startOfDay(enroll.start_date),
+          enroll.duration
+        );
+      }
+    });
 
     return this;
   }
