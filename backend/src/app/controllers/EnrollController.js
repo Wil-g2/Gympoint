@@ -3,6 +3,9 @@ import Enroll from '../models/Enroll';
 import Plan from '../models/Plans';
 import Student from '../models/Student';
 
+import EnrollMail from '../jobs/EnrollMail';
+import Queue from '../../lib/Queue';
+
 class EnrollController {
   async index(req, res) {
     const { page = 1 } = req.query;
@@ -63,6 +66,12 @@ class EnrollController {
       month_price: price,
       duration,
       ...req.body,
+    });
+
+    Queue.add(EnrollMail.key, {
+      enroll,
+      plans,
+      student,
     });
 
     return res.json({ enroll });
