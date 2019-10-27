@@ -1,0 +1,39 @@
+<style type="text/css">
+  body {
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+div.header {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.3);
+    margin: 15px
+  }
+
+div.header img {
+  width: 180px;
+  height: 140px;
+  align-self: center;
+}
+
+div.text p {
+  align-self: center;
+}
+</style>
+<div class="header">
+  <img src="https://github.com/Rocketseat/bootcamp-gostack-desafio-03/blob/master/.github/logo.png?raw=true" alt="">
+  <div class="text">
+    <p> <strong>Olá, {{ student }}</strong> ! </p>
+    <p>Estamos felizes em ter você na Gympoint. Segue abaixo sua resposta: </p>
+  </div>
+<p>
+    <strong>Resposta: </strong> {{ answer }} <br />
+    <br />
+  <small>
+    Esperamos você, até!
+  </small>
+</p>
+</div>
